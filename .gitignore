@@ -1,0 +1,9 @@
+dev.js
+node_modules
+firebaseKeys.js
+logos
+git
+git.pub
+server/data/tokens
+server/data/checks
+server/data/users

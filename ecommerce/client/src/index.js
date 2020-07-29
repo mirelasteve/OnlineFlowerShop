@@ -2,21 +2,31 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {createStore} from 'redux';
-import * as serviceWorker from './serviceWorker.js';
+import { createStore, applyMiddleware, compose } from 'redux';
+// import * as serviceWorker from './serviceWorker.js';
 import {Provider} from 'react-redux';
-import userReducer from'./redux/reducers/user.reducers/user.reducers';
+import reduxThunk from 'redux-thunk';
 
-const store = createStore(userReducer);
+import rootReducer from './redux/reducers/index.reducers';
+const composeEnhancers =
+  typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+    }) : compose;
+
+const enhancer = composeEnhancers(
+  applyMiddleware(reduxThunk),
+);
+const store = createStore(rootReducer,enhancer);
+
 ReactDOM.render(
-  <React.StrictMode>
+
     <Provider store={store}>
       <App />
     </Provider>
-    
-  </React.StrictMode>,
+,
   document.getElementById('root')
 );
 
 
-serviceWorker.register()
+// serviceWorker.register()

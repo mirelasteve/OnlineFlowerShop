@@ -5,11 +5,13 @@ import '../node_modules/bulma/css/bulma.css';
 import Navbar from './components/navbar/navbar.component.jsx';
 import {BrowserRouter} from 'react-router-dom';
 import Routes from './routes/routes.component';
-import {auth,createUser} from './firebase/firebase.utils';
+import * as authActions  from './redux/actions/auth/auth.actions';
+// import {auth,createUser} from './firebase/firebase.utils';
+import {connect} from 'react-redux';
 
 class App extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state ={
       currentUser:''
     }
@@ -18,45 +20,32 @@ class App extends React.Component {
 
 
   componentDidMount(){
-    
-   this.unSubscribeFromForm = auth.onAuthStateChanged(async (user)=>{
-      if(user){
-       const userRef = await createUser(user);
-       userRef.onSnapshot(snapshot => {
-         
-          this.setState({
-            currentUser:snapshot.data()
-          })
-        })
-        
-      } else {
-        this.setState({
-          currentUser:user
-        })
-      }
-    })
-    
-  }
-  componentWillUnmount(){
-    
-    this.unSubscribeFromForm();
-  }
+    this.props.loadCreateUser();
+  
+}
+ 
   render(){
+    
     return (
-      <div className="App">
+    <div className="App">
       
       <BrowserRouter>
                  
-                 <Navbar currentUser={this.state.currentUser}></Navbar>
-                 <Routes></Routes>
-             
-  
-         </BrowserRouter>
-      
-        
-      </div>
+        <Navbar currentUser={this.state.currentUser} ></Navbar>
+        <Routes></Routes>
+      </BrowserRouter>
+    </div>
     );
   }
   }  
 
-export default App;
+
+const mapStateToProps = (state) => {
+  return {
+    auth:state.auth
+  }
+}
+const mapDispatchToProps = (dispatch) =>{
+  return dispatch(authActions)
+}
+export default connect(mapStateToProps,authActions)(App);

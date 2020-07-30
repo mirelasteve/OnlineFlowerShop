@@ -5,11 +5,20 @@ import { SIGN_UP, SIGN_OUT } from '../actions.types';
 
 export const SignInWithProvider = (providerName)=>{
    return async (dispatch) =>{
-    
-       let provider = new firebase.auth.GoogleAuthProvider() ;
+
+       let provider = '';
+
+        switch(providerName){
+            case 'google' : provider = new firebase.auth.GoogleAuthProvider(); break;
+            case 'facebook' : provider = new firebase.auth.FacebookAuthProvider(); break;
+            default: return ''
+        }
+       
       
        const user = await firebase.auth().signInWithPopup(provider);
-       dispatch(signUp(user))
+       if(user){
+         
+       }
        }
        
    }
@@ -26,45 +35,54 @@ export const SignInWithProvider = (providerName)=>{
 export const loadCreateUser = () => {
     return async(dispatch) => {
     firebase.auth().onAuthStateChanged(async (user)=>{
-        
+      
             if(user){
-                const userRef = await createUser(user);
-                userRef.onSnapshot(snapshot => {
-                  
-                   dispatch(signUp(snapshot.data()))
-                   
-                 })
-                 
-               } else {
-                 
-               }
+                dispatch(checkDatebaseForCurrentUser(user))
+            } else {
+                //@TODO
+                //  dispatch(error)
+            }
+            
              })
         }
         
 
 }
-
-export const createUser = async (userAuth,data) => {
-    if(!userAuth) return;
-   
-    const userRef = firebase.firestore().doc(`/users/${userAuth.uid}`);
-    const snapShot = await userRef.get();
-    
-    if(snapShot.exists){
-
-    } else {
-      const {displayName,email,uid}= userAuth
-      const createdAt = new Date();
-      await userRef.set({
-                        displayName,
-                        email,
-                        uid,
-                        createdAt,
-                        ...data
-      })
+const checkDatebaseForCurrentUser = (user,data) =>{
+    return async (dispatch) =>{
+        const userRef = await firebase.firestore().doc(`/users/${user.uid}`);
+        const result = await userRef.get();
+        if(result.exists){
+            dispatch(signUp(result.data()))
+        } else {
+           dispatch(createUser(userRef,user,data))
+          }
     }
-    return userRef
-  }
+    
+}
+export const createUser =  (userRef,userAuth,data) => {
+    return async(dispatch)=>{
+        if(!userAuth){
+            return;
+        }  else {
+                const {displayName,email,uid}= userAuth
+                const createdAt = new Date();
+                await userRef.set({
+                                    displayName,
+                                    email,
+                                    uid,
+                                    createdAt,
+                                    ...data
+                                 })
+                }
+                dispatch(signUp(userAuth))
+                return userRef
+    }
+    
+    }
+   
+    
+  
 
   export const loadSignOut =  () => {
     return async (dispatch) => {

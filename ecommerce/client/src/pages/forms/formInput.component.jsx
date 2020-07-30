@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { SignInWithGoogle } from '../../firebase/firebase.utils';
+
 
 class FormInput extends Component{
     constructor(props){
@@ -32,7 +32,7 @@ class FormInput extends Component{
                 </div>
             </div>
             </div>
-            <button className='button' onClick={()=>SignInWithGoogle()}>Google</button>
+            {/* <button className='button' onClick={()=>SignInWithGoogle()}>Google</button> */}
             </div>
         )
     }

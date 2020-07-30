@@ -13,33 +13,36 @@ class Navbar extends Component {
         }
     }
     renderNavEnd(){
-        
-        console.log('this.props.currentUser ',this.props.currentUser);
-        if(this.props.currentUser === null){
+      
+        if(this.props.auth.user === null){
            
-            
             return ( <React.Fragment>
                 <div className='navbar-item'><Link to='/signupmail'><button className='button has-text-primary-light has-background-primary-dark'><i className="fa fa-envelope mr-4" ></i><span className='is-spaced'>Sign in </span></button></Link></div>
                 <div className='navbar-item'>
-                    <button  className='button is-info' >
+                    <button  onClick={()=>this.props.SignInWithProvider('facebook')} className='button is-info' >
                         <span className='icon is-large'>
                             <i className="fab fa-facebook-f" ></i>
                         </span>
                     </button>
                 </div>
                 
-                < div className='navbar-item'><button onClick={()=>this.props.SignInWithProvider('google')} className='button is-danger is-light'><span className='icon is-large'><i className="fab fa-google" aria-hidden="true"></i></span></button></div>
+                <div className='navbar-item'>
+                    <button onClick={()=>this.props.SignInWithProvider('google')} className='button is-danger is-light'>
+                        <span className='icon is-large'><i className="fab fa-google" aria-hidden="true"></i></span>
+                    </button>
+                </div>
             </React.Fragment>)
-        } else if(this.props.currentUser.displayName === ''){
+        } else if(this.props.auth.user === ''){
+           
             return (<div className='navbar-item'>
-            <span>Loading ...</span>
-            <progress className="progress is-small is-warning" max="100"></progress>
-            </div>
+                        <span>Loading ...</span>
+                        <progress className="progress is-small is-warning" max="100"></progress>
+                    </div>
                 )
         } else {
             return ( <div className='navbar-item'>
                 <div className='navbar-item'><i className="fa fa-shopping-cart" aria-hidden="true"></i></div>
-                <div className='navbar-item text-white'>{this.props.currentUser.displayName}</div>
+                <div className='navbar-item text-white'>{this.props.auth.user.displayName}</div>
                 <div className='navbar-item'>
                     <button className='button is-danger is-outlined' onClick={()=>this.props.loadSignOut()}>Sign Out</button>
                 </div>

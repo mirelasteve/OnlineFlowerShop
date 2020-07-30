@@ -1,4 +1,3 @@
-import auth from '../../../firebase/firebase.utils';
 
 import {SET_USER} from '../../actions/actions.types';
 

@@ -13,13 +13,11 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      currentUser:''
+     
     }
   }
-  unSubscribeFromForm = null;
-
-
-  componentDidMount(){
+componentDidMount(){
+  
     this.props.loadCreateUser();
   
 }
@@ -30,8 +28,7 @@ class App extends React.Component {
     <div className="App">
       
       <BrowserRouter>
-                 
-        <Navbar currentUser={this.state.currentUser} ></Navbar>
+        <Navbar></Navbar>
         <Routes></Routes>
       </BrowserRouter>
     </div>

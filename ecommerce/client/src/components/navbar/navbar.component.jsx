@@ -9,9 +9,18 @@ class Navbar extends Component {
     constructor(props){
         super(props);
         this.state={
-           
+           user:''
         }
     }
+    // componentDidMount(){
+    //     this.props.auth === null
+    //     ?this.setState({
+    //         user:this.props.auth.user.displayName
+    //     }) 
+    //     : this.setState({
+    //         user:this.props.auth.user.displayName
+    //     })
+    // }
     renderNavEnd(){
       
         if(this.props.auth.user === null){
@@ -32,7 +41,7 @@ class Navbar extends Component {
                     </button>
                 </div>
             </React.Fragment>)
-        } else if(this.props.auth.user === ''){
+        } else if(this.props.auth.user === false){
            
             return (<div className='navbar-item'>
                         <span>Loading ...</span>
@@ -41,12 +50,12 @@ class Navbar extends Component {
                 )
         } else {
             return ( <div className='navbar-item'>
-                <div className='navbar-item'><i className="fa fa-shopping-cart" aria-hidden="true"></i></div>
-                <div className='navbar-item text-white'>{this.props.auth.user.displayName}</div>
-                <div className='navbar-item'>
+                <span className=''><i className="fa fa-shopping-cart" aria-hidden="true"></i></span>
+                <span className='ml-4'>{this.props.auth.user.displayName}</span>
+                <div className='navbar-item ml-2'>
                     <button className='button is-danger is-outlined' onClick={()=>this.props.loadSignOut()}>Sign Out</button>
                 </div>
-            </div>)
+            </div >)
         }
     }
     render(){
@@ -55,7 +64,7 @@ class Navbar extends Component {
         return(
             <div className='navbar is-dark' role="navigation" >
 
-                <div className='navbar-brand'><img src={require('../../logos/logo_transparent.png')} alt='Flower store' width='100' height='100'/></div>
+                {/* <div className='navbar-brand'><img src={require('../logos/logo_transparent.png')} alt='Flower store' width='10' height='10'/></div> */}
                 <a href='/#' role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -120,4 +129,4 @@ class Navbar extends Component {
      }
  }
  
- export default connect(mapStateToProps,authActions)(Navbar);
+ export default connect(mapStateToProps,null)(Navbar);

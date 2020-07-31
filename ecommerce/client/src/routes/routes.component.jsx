@@ -21,6 +21,7 @@ class Routes extends Component {
                 <Route exact path ='/shop' component={ShopPage}></Route>
                 <Route exact path ='/signupmail' component={FormInput}></Route>
                 <Route exact path ='/vases' component={Vases}></Route>
+                <Route exact path ='/instruments' component={Vases}></Route>
             </Switch>
             
 

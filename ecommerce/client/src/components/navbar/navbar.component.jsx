@@ -12,15 +12,7 @@ class Navbar extends Component {
            user:''
         }
     }
-    // componentDidMount(){
-    //     this.props.auth === null
-    //     ?this.setState({
-    //         user:this.props.auth.user.displayName
-    //     }) 
-    //     : this.setState({
-    //         user:this.props.auth.user.displayName
-    //     })
-    // }
+   
     renderNavEnd(){
       
         if(this.props.auth.user === null){
@@ -41,7 +33,7 @@ class Navbar extends Component {
                     </button>
                 </div>
             </React.Fragment>)
-        } else if(this.props.auth.user === false){
+        } else if(this.props.auth.user === ''){
            
             return (<div className='navbar-item'>
                         <span>Loading ...</span>
@@ -59,7 +51,6 @@ class Navbar extends Component {
         }
     }
     render(){
-        
         
         return(
             <div className='navbar is-dark' role="navigation" >

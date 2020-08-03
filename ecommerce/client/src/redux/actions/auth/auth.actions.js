@@ -41,12 +41,8 @@ export const loadCreateUser = () => {
             } else {
                 //@TODO
                 //  dispatch(error)
-            }
-            
-             })
+            }})
         }
-        
-
 }
 const checkDatebaseForCurrentUser = (user,data) =>{
     return async (dispatch) =>{

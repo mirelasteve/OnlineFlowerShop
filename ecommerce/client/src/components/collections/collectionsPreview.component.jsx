@@ -1,28 +1,21 @@
 import React, {Component} from 'react';
+import {withRouter, useParams} from 'react-router-dom';
 
-
-class CollectionsPreview extends Component { 
-    constructor(props){
-        super(props);
-        this.state={
-         
-        }
-    }
-    render(){
-        
+const CollectionsPreview = ({id,img,match,history,name}) => { 
+    
+    let nameP= useParams();
+    console.log(nameP);
+    
         
         return(
             
             <div className='columns is-multiline'>
-            <div className='column ml-5 is-size-1 is-12 has-background-warning-light'>{this.props.title.toUpperCase()}</div>
-                {this.props.items.filter( (x,index)=> index<4).map(({id,name,price,imageUrl})=>
-                
-            
-                <div key={id} className='column is-3'>
+            <div className='column  is-size-1 is-4 has-background-warning-light'>{name.toUpperCase()}</div>
+                <div key={id} className='column is-3' onClick={()=>history.push(`${match.url}/${id}`)}>
                     <div  className='card'>
                         <div className="card-image">
                             <figure className="image is-4by3">
-                                <img src={imageUrl} alt={name}/>
+                                <img src={img} alt={name}/>
                             </figure>
                         </div>
                         <div className='card-footer'>
@@ -30,9 +23,9 @@ class CollectionsPreview extends Component {
                         </div>
                     </div>
                 </div>
-            )}
+            
             </div>
         
-        )	} 
+        )
  } 
- export default CollectionsPreview;
+ export default withRouter(CollectionsPreview);

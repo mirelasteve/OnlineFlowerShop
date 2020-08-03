@@ -1,7 +1,12 @@
 import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 
 
-const CollectionItem= ({id,name,price,imageUrl}) => {
+const CollectionItem= ({_id,name,price,img,match}) => {
+     let {path,url} = useRouteMatch();
+     
+     console.log(path,url);
+   
     return (
         <div className='card'>
         <div className='card-header'>

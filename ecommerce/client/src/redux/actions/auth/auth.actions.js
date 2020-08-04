@@ -1,5 +1,5 @@
 import firebase from '../../../firebase/firebase.utils';
-import auth from '../../../firebase/firebase.utils';
+// import auth from '../../../firebase/firebase.utils';
 import { SIGN_UP, SIGN_OUT } from '../actions.types';
 
 

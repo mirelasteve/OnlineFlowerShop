@@ -5,7 +5,7 @@ import '../node_modules/bulma/css/bulma.css';
 import Navbar from './components/navbar/navbar.component.jsx';
 import {BrowserRouter} from 'react-router-dom';
 import Routes from './routes/routes.component';
-import * as authActions  from './redux/actions/auth/auth.actions';
+// import * as authActions  from './redux/actions/auth/auth.actions';
 import {SignInWithProvider,loadCreateUser,loadSignOut} from './redux/actions/auth/auth.actions';
 
 // import {auth,createUser} from './firebase/firebase.utils';

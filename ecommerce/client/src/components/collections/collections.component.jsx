@@ -1,15 +1,14 @@
-import products from '../../redux/data/products';
-
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
+import {connect} from 'react-redux';
 
 class Collections extends Component { 
     constructor(props){
         super(props);
         this.state={
-            products:products,
-            collections:Object.keys(products),
+            products:this.props.products,
+            collections:Object.keys(this.props.products),
             
             // paramName:this.props.match.params.collectionName
         }
@@ -25,14 +24,12 @@ class Collections extends Component {
                     <div className="column is-12 has-text-success-dark" >
                         <Link to={this.props.match.url+''+productKey} >{productKey}</Link>
                     </div>
-                    {this.state.products[productKey].
-                            filter( (pi,productIndex) => productIndex < 4)
-                            .map( ({_id,name,price,img}) =>
+                    {this.state.products[productKey].filter( (pi,productIndex) => productIndex < 4).map( ({_id,name,img}) =>
                             <div className="column is-3 hover-hand" onClick={()=>this.props.history.push(`${this.props.match.url}${productKey}${_id}`)}>
                                 <div className="card">
                                     <div className="card-image">
                                         <figure className="image is-1by1">
-                                            <img src={img}/>
+                                            <img src={img} alt={name}/>
                                         </figure>
                                     </div>
                                     <div className='content'>
@@ -48,4 +45,10 @@ class Collections extends Component {
             </React.Fragment>
         )	} 
  } 
- export default Collections;
+
+ const mapStateToProps = (state) => {
+     return {
+        products:state.products
+     }
+ }
+ export default connect(mapStateToProps,null)(Collections);

@@ -4,7 +4,7 @@ import logo from './notFoundLogo.png';
 
 const NoMatch = () => {
     let location = useLocation();
-    console.log(location);
+   
     return(
              <div className="has-text-centered">
                 
@@ -12,7 +12,7 @@ const NoMatch = () => {
                 
                 <div className='ml-4'>
                     
-                            <img src={logo} />
+                            <img src={logo} alt='we cannot find the page' />
                        
                 </div>
             </div>

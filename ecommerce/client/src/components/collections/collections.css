@@ -1,0 +1,6 @@
+.collection_description{
+    visibility:hidden
+}
+.collection_description:hover{
+    visibility:true
+}

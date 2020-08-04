@@ -20,8 +20,8 @@ class Collections extends Component {
                
                 {
                     this.state.collections.map(productKey =>
-                    <div className="columns is-multiline is-mobile">
-                    <div className="column is-12 has-text-success-dark" >
+                    <div className="columns is-multiline is-mobile mt-2">
+                    <div className="column is-12 has-text-success-dark mt-2" >
                         <Link to={this.props.match.url+''+productKey} >{productKey}</Link>
                     </div>
                     {this.state.products[productKey].filter( (pi,productIndex) => productIndex < 4).map( ({_id,name,img}) =>
@@ -29,9 +29,11 @@ class Collections extends Component {
                                 <div className="card">
                                     <div className="card-image">
                                         <figure className="image is-1by1">
-                                            <img src={img} alt={name}/>
-                                        </figure>
-                                    </div>
+                                                <img src={img} alt={name}/>
+                                                
+                                            </figure>
+                                        </div>
+                                    
                                     <div className='content'>
                                         {name}
                                     </div>

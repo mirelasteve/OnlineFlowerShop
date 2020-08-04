@@ -2,7 +2,7 @@
   "name": "ecommerce",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mirelasteve.github.io/OnlineFlowerShop/",
+  "homepage": "/",
   "dependencies": {
     "bulma": "^0.9.0",
     "cra-template": "1.0.3",

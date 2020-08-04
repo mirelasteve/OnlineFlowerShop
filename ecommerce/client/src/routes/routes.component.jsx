@@ -21,7 +21,7 @@ class Routes extends Component {
                 <Route exact path='/' component={Homepage}></Route>
                 <Route exact path='/products/' component={Collections}></Route>
                 <Route exact path='/products/:collectionName' component={collectionsPreviewComponent}></Route>
-                <Route exact path='/products/:name/:id' component={CollectionItem}></Route>
+                <Route exact path='/products/:collectionName/:id' component={CollectionItem}></Route>
                 <Route exact path='/seeds' component={Dashboard}></Route>
                 <Route exact path='/dashboard' component={Dashboard}></Route>
                 <Route exact path='/dashboard/:id' component={Dashboard}></Route>

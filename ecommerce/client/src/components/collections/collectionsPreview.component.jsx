@@ -4,7 +4,8 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import loadStateProduct from '../../redux/actions/products/products.actions';
 
-const CollectionsPreview = (props,history,match) => { 
+const CollectionsPreview = ({products,history,match}) => { 
+  
     const [collection, setCollection] = useState([]);
 
     const [loader,setLoader] = useState(false);
@@ -19,8 +20,8 @@ const CollectionsPreview = (props,history,match) => {
               setLoader(true)
                 await loadStateProduct();
                 
-                setCollection(props.products[collectionName]);
-                setVisibility(Array.from({length:props.products[collectionName].length}).fill(' is-hidden'))
+                setCollection(products[collectionName]);
+                setVisibility(Array.from({length:products[collectionName].length}).fill(' is-hidden'))
                 setLoader(false)
           } catch (e) {
            
@@ -48,9 +49,10 @@ const CollectionsPreview = (props,history,match) => {
                 {loader 
                 ? <div>Loading ...</div>
                 : <div className='columns is-multiline mt-2'>
-                    {collection.map( ({_id,name,price,img},ind) =>
+                    {collection.map( ({_id,name,price,img,description},ind) =>
                          <div key={_id} className='column  is-size-4 is-3 has-text-info-dark is-italic' >{name}
                                     <div  className='is-3' onClick={()=>history.push(`${match.url}/${_id}`)}>
+                                    
                                         <div  className='card' onMouseEnter={()=>setVisibilityToElement(ind)} onMouseLeave={()=>setInvisibilityToElement(ind)}>
                                             <div className="card-image">
                                                 <figure className="image is-4by3">
@@ -60,7 +62,7 @@ const CollectionsPreview = (props,history,match) => {
                                             </div>
                                            
                                            <div className={'content is-size-7 has-text-centered'+isVisibleArr[ind]}>
-                                               This is image description
+                                               {description}
                                             </div>
                                             <div className='card-footer'>
                                                 <div className='card-footer-item is-size-6 is-italic'>$ {price}</div>

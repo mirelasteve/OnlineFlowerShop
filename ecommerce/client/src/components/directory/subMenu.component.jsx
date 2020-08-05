@@ -2,7 +2,6 @@ import React from 'react'
 import {withRouter} from 'react-router-dom';
 
 const SubMenu = ({link,id,name,img,history,match}) => {
-    console.log(`${match.url}products${link}`);
     
     return (
         <div className='card' onClick={()=>history.push(`${match.url}products${link}`)}>

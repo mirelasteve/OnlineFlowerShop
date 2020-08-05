@@ -10,6 +10,7 @@ import {SignInWithProvider,loadCreateUser,loadSignOut} from './redux/actions/aut
 
 // import {auth,createUser} from './firebase/firebase.utils';
 import {connect} from 'react-redux';
+import HeroBanner from './pages/hero/hero.pages';
 
 class App extends React.Component {
   constructor(props){
@@ -37,6 +38,7 @@ class App extends React.Component {
           loadCreateUser={this.props.loadCreateUser}
           loadSignOut={this.props.loadSignOut}
         ></Navbar>
+        <HeroBanner></HeroBanner>
         <Routes></Routes>
       </BrowserRouter>
     </div>

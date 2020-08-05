@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Switch,Route} from 'react-router-dom';
+import {Switch,Route,Redirect} from 'react-router-dom';
 import Homepage from '../components/homepage/homepage.component';
 import Dashboard from '../components/dashboard/dashboard.component';
 import ShopPage from '../pages/shopPage/shopPage.component';

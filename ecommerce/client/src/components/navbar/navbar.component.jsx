@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link,withRouter,NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {compose} from 'redux';
 // import * as authActions from '../../redux/actions/auth/auth.actions';
 
 
@@ -51,7 +52,7 @@ class Navbar extends Component {
         }
     }
     render(){
-        
+       
         return(
             <div className='navbar is-dark' role="navigation" >
 
@@ -68,33 +69,67 @@ class Navbar extends Component {
                         </div>
                         
                         <div className='navbar-item has-dropdown is-hoverable' aria-label="dropdown navigation">                   
-                            <div className='navbar-link' label="dropdown navigation">Flowers</div>
+                            <div className='navbar-link' label="dropdown navigation">Flowers and Trees</div>
                                 <div className='navbar-dropdown'>
-                                    <Link to='/shop' className='navbar-item'>Seeds</Link>
-                                    <Link to='/shop' className='navbar-item'>Bulbs</Link>
-                                    <a href='/' className='navbar-item'>Garden</a>
-                                    <a href='/' className='navbar-item'>Home flowers</a>
-                                    <a href='/' className='navbar-item'>Trees</a>
+                                    <ul>
+                                    <li>
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/seeds`)}}>Seeds</button>
+                                    </li> 
+                                    <li> 
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/bulbs`)}}>Bulbs</button>
+                                    </li>
+                                    <li> 
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/garden`)}}>Garden</button>
+                                    </li> 
+                                    <li>
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/trees`)}}>Trees</button>
+                                    </li>
+                                
+                                    </ul>
+                                    
+                                    
                                 </div>
                         </div> 
 
                         <div className='navbar-item has-dropdown is-hoverable' aria-label="dropdown navigation">                   
                             <div className='navbar-link' label="dropdown navigation">Bouquest</div>
                                 <div className='navbar-dropdown'>
-                                    <a href='/' className='navbar-item'>Weddings</a>
-                                    <a href='/' className='navbar-item'>Anniversary</a>
-                                    <a href='/' className='navbar-item'>Gradiation</a>
-                                    <a href='/' className='navbar-item'>New baby</a>
+                                <ul>
+                                    <li>
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/weddings`)}}>Weddings</button>
+                                    </li> 
+                                    <li> 
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/graduation`)}}>Graduation</button>
+                                    </li>
+                                    <li> 
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/newBaby`)}}>Newborn Bouquets</button>
+                                    </li> 
+                                    <li>
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/anniversary`)}}>Anniversary</button>
+                                    </li>
+                                
+                                    </ul>
                                 </div>
                         </div>
 
                         <div className='navbar-item has-dropdown is-hoverable' aria-label="dropdown navigation">                   
                             <div className='navbar-link' label="dropdown navigation">Floral Supplies</div>
                                 <div className='navbar-dropdown'>
-                                    <Link to='/vases'>className='navbar-item'>Vases</Link>
-                                    <a href='/'className='navbar-item'>Instruments</a>
-                                    <a href='/'className='navbar-item'>Foams</a>
-                                    <a href='/'className='navbar-item'>Preparation materials</a>
+                                <ul>
+                                    <li>
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/floralsupplies`)}}>Floral supplies</button>
+                                    </li> 
+                                    <li> 
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/instruments`)}}>Instruments</button>
+                                    </li>
+                                    <li> 
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/foams`)}}>Foams</button>
+                                    </li> 
+                                    <li>
+                                        <button className='button is-white' onClick={()=>{this.props.history.push(`${this.props.match.url}products/prepMaterials`)}}>Materials</button>
+                                    </li>
+                                
+                                    </ul>
                                 </div>
                         </div> 
 
@@ -120,4 +155,4 @@ class Navbar extends Component {
      }
  }
  
- export default connect(mapStateToProps,null)(Navbar);
+ export default compose(withRouter, connect(mapStateToProps,null))(Navbar);

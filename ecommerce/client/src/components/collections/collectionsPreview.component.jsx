@@ -13,13 +13,16 @@ const CollectionsPreview = ({products,history,match}) => {
     const [isVisibleArr,setVisibility] = useState([]);
 
     const {collectionName} = useParams();
-    
+
+    console.log(collectionName);
+
     useEffect(() => {
+      console.log('use effect');
         const loadState = async () => {
           try {
               setLoader(true)
                 await loadStateProduct();
-                
+               
                 setCollection(products[collectionName]);
                 setVisibility(Array.from({length:products[collectionName].length}).fill(' is-hidden'))
                 setLoader(false)
@@ -29,7 +32,7 @@ const CollectionsPreview = ({products,history,match}) => {
           }
         };
         loadState();
-      },[] );
+      },[collectionName]);
      
     
       const setVisibilityToElement = (ind) => {

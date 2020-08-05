@@ -34,7 +34,7 @@ class DirectoryMenu extends Component {
                     id:5,
                     name:'Floral supplies',
                     img:'https://media.istockphoto.com/photos/landscaping-tools-with-room-for-copy-picture-id502377899?b=1&k=6&m=502377899&s=170667a&w=0&h=6enMP-5HK1t8wf4W5CWRX7yIz1XKlCLopdOLkDs520Y=',
-                    link:'/floralsupplies'
+                    link:'/supplies'
                 }
                 
             ]

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {withRouter, useParams} from 'react-router-dom';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import loadStateProduct from '../../redux/actions/products/products.actions';
+import {loadStateProductCollection}  from '../../redux/actions/products/products.actions';
 
 const CollectionsPreview = ({products,history,match}) => { 
   
@@ -14,17 +14,21 @@ const CollectionsPreview = ({products,history,match}) => {
 
     const {collectionName} = useParams();
 
-    console.log(collectionName);
-
     useEffect(() => {
-      console.log('use effect');
+      
         const loadState = async () => {
           try {
               setLoader(true)
-                await loadStateProduct();
-               
-                setCollection(products[collectionName]);
-                setVisibility(Array.from({length:products[collectionName].length}).fill(' is-hidden'))
+                await loadStateProductCollection();
+                let setProduct = [];
+                products.map(x=>{
+                  const {[collectionName]: value} = x;
+                  if(value){
+                    setProduct = value
+                  }
+                })
+                setCollection(setProduct);
+                setVisibility(Array.from({length:collection.length}).fill(' is-hidden'))
                 setLoader(false)
           } catch (e) {
            
@@ -32,7 +36,7 @@ const CollectionsPreview = ({products,history,match}) => {
           }
         };
         loadState();
-      },[collectionName]);
+      },[collectionName,products]);
      
     
       const setVisibilityToElement = (ind) => {
@@ -91,5 +95,5 @@ const CollectionsPreview = ({products,history,match}) => {
 
  export default compose(
   withRouter,
-  connect(mapStateToProps,{loadStateProduct})
+  connect(mapStateToProps,{loadStateProductCollection})
 )(CollectionsPreview);

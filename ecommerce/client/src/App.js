@@ -11,6 +11,7 @@ import {SignInWithProvider,loadCreateUser,loadSignOut} from './redux/actions/aut
 // import {auth,createUser} from './firebase/firebase.utils';
 import {connect} from 'react-redux';
 import HeroBanner from './pages/hero/hero.pages';
+import {loatStateProduct} from './redux/actions/products/products.actions';
 
 class App extends React.Component {
   constructor(props){
@@ -21,9 +22,11 @@ class App extends React.Component {
   }
  
   componentDidMount(){
-    
-  this.props.loadCreateUser()
-  
+    const load = async () => {
+      await this.props.loadCreateUser()
+      await this.props.loadState()
+    }
+  load()
 }
 
   render(){
@@ -55,6 +58,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   SignInWithProvider : (provider) => dispatch(SignInWithProvider(provider)),
   loadCreateUser : () => dispatch(loadCreateUser()),
-  loadSignOut : () =>dispatch(loadSignOut())
+  loadSignOut : () =>dispatch(loadSignOut()),
+  loadState : () => dispatch(loatStateProduct())
 })
 export default connect(mapStateToProps,mapDispatchToProps)(App);

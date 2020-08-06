@@ -1,17 +1,34 @@
+import { db } from "../../../firebase/firebase.utils"
 
 const {LOAD_STATE_PRODUCT, LOAD_STATE_PRODUCT_COLLECTION } = require("../actions.types")
 
-export const  loatStateProduct = () => {
-    console.log('loadStateProduct')
-    return {
-        type:LOAD_STATE_PRODUCT
-    }
+export const  loatStateProduct = (dispatch) => {
+    return (
+        async dispatch => {
+            const data = []
+            const snapshot = await db.collection('products').get();
+            snapshot.forEach( async doc => {
+                if(doc.data()) {
+                    data.push(doc.data());
+                }
+            });
+          
+            dispatch(getStateProducts(data));
+
+        }
+    )
+    
 }
 
-export const loatStateProductCollection = (collectionName) => {
+ const getStateProducts = (payload) => {
     return {
-        type:LOAD_STATE_PRODUCT_COLLECTION,
-        collectionName
+        type:LOAD_STATE_PRODUCT,
+        payload
     }
 }
-export  default loatStateProduct
+export const loadStateProductCollection = () => {
+    return {
+        type:LOAD_STATE_PRODUCT_COLLECTION,
+        
+    }
+}

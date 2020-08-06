@@ -1,12 +1,18 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import productReducer from '../../redux/reducers/products/products.reducer';
 import {connect} from 'react-redux';
 import { LOAD_STATE_PRODUCT } from '../../redux/actions/actions.types';
 
 const CollectionItem= ({productItem}) => {
-    const [state,setState] = useState(productItem||{});
-
+    
+    const [state,setState] = useState(productItem);
+   
+    useEffect(()=>{
+        if(productItem){
+            setState(productItem)
+        }
+    },productItem._id)
     const {name,description,price,img} = state;
     
     return (
@@ -46,10 +52,21 @@ const CollectionItem= ({productItem}) => {
 
 const mapStateToProps = (state,ownProps) => {
     const {collectionName,id} = ownProps.match.params;
-    
-    return ({
-        productItem:state.products[collectionName].filter(pr=> pr._id === id)[0]
+
+    let setCurrentItem = {}
+    state.products.map(x=>{
+        const {[collectionName] :value} = x;
+        if(typeof value === 'object' && Array.isArray(value)){
+           let currentItem = value.filter(item=> item._id === id)
+            setCurrentItem = currentItem[0]
+        }
     })
+    if(typeof setCurrentItem === 'object'){
+        return ({
+            productItem:setCurrentItem
+        })
+    }
+    
 }
 const mapDispatchToProps = dispatch => {
     return {

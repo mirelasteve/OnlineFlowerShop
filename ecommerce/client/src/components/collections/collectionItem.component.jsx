@@ -2,9 +2,9 @@ import React, { useReducer, useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import productReducer from '../../redux/reducers/products/products.reducer';
 import {connect} from 'react-redux';
-import { LOAD_STATE_PRODUCT } from '../../redux/actions/actions.types';
+import { LOAD_STATE_PRODUCT, ADD_PRODUCT_TO_CART } from '../../redux/actions/actions.types';
 
-const CollectionItem= ({productItem}) => {
+const CollectionItem= ({productItem, addProductToTheCart}) => {
     
     const [state,setState] = useState(productItem);
    
@@ -13,7 +13,7 @@ const CollectionItem= ({productItem}) => {
             setState(productItem)
         }
     },productItem._id)
-    const {name,description,price,img} = state;
+    const {name,description,price,img,_id} = state;
     
     return (
         <div className='columns'>
@@ -39,7 +39,7 @@ const CollectionItem= ({productItem}) => {
                     </div>
 
                     <div className='footer'>
-                        <button className='button is-danger is-light'>Add to cart</button>
+                        <button className='button is-danger is-light' onClick={()=>addProductToTheCart({id:_id,count:1,name:name,price:price})}>Add to cart</button>
                         <button className='button is-info is-light is-right '>Check</button>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ const mapStateToProps = (state,ownProps) => {
     const {collectionName,id} = ownProps.match.params;
 
     let setCurrentItem = {}
-    state.products.map(x=>{
+    state.products.products.map(x=>{
         const {[collectionName] :value} = x;
         if(typeof value === 'object' && Array.isArray(value)){
            let currentItem = value.filter(item=> item._id === id)
@@ -71,7 +71,8 @@ const mapStateToProps = (state,ownProps) => {
 const mapDispatchToProps = dispatch => {
     return {
       // dispatching plain actions
-      loadState: () => dispatch({ type: LOAD_STATE_PRODUCT }),
+      
+      addProductToTheCart: (product) => dispatch({type: ADD_PRODUCT_TO_CART,product})
       
     }
   }

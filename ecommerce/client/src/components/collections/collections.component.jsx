@@ -30,11 +30,14 @@ class Collections extends Component {
                 productKeys:productKeys,
                 productValues:productValues
             })
-        }
+        } 
         
     }
+    componentWillUpdate(){
+        return false
+    }
     render(){
-        
+        console.log(this.props.products,this.state.products);
         return(
             <React.Fragment>
                
@@ -42,7 +45,7 @@ class Collections extends Component {
                     this.state.productValues.map(([prKey,values]) =>
                     <div key = {prKey} className="columns is-multiline is-mobile mt-2 ml-3">
                     <div className="column is-12 has-text-success-dark mt-2 is-size-1 ml-3 is-capitalized" >
-                        <Link to={this.props.match.url+''+prKey} >{prKey}</Link>
+                        <Link to={this.props.match.url+'/'+prKey} >{prKey}</Link>
                     </div>
                     {values.filter( (pi,productIndex) => productIndex < 4).map( ({_id,name,img}) =>
                         <div key = {_id} className="column is-3 hover-hand" onClick={()=>this.props.history.push(`${this.props.match.url}/${prKey}/${_id}`)}>
@@ -72,7 +75,7 @@ class Collections extends Component {
  const mapStateToProps = (state) => {
      
      return {
-        products:state.products
+        products:state.products.products
      }
  }
  export default connect(mapStateToProps,null)(Collections);

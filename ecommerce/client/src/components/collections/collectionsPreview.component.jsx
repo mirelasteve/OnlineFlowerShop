@@ -28,7 +28,7 @@ const CollectionsPreview = ({products,history,match}) => {
                   }
                 })
                 setCollection(setProduct);
-                setVisibility(Array.from({length:collection.length}).fill(' is-hidden'))
+                setVisibility(Array.from({length:setProduct.length}).fill(' is-hidden'))
                 setLoader(false)
           } catch (e) {
            
@@ -89,7 +89,7 @@ const CollectionsPreview = ({products,history,match}) => {
 
  function mapStateToProps(state){
      return {
-         products:state.products
+         products:state.products.products
      }
  }
 

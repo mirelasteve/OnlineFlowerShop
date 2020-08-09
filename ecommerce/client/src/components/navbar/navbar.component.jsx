@@ -10,10 +10,34 @@ class Navbar extends Component {
     constructor(props){
         super(props);
         this.state={
-           user:''
+           user:'',
+           count:0,
+           activeCart:''
         }
     }
    
+    componentDidUpdate(){
+       let newCount = 0;
+        this.props.cart.map(x=> newCount+=x.count);
+        if( typeof newCount === 'number' && newCount!== this.state.count ){
+            this.setState({
+                count:newCount
+            })
+        }
+    }   
+
+    activateHover(){
+        if(this.state.activeCart.length<1) {
+            this.setState({
+                activeCart:' is-active'
+            })
+        } else {
+            this.setState({
+                activeCart:''
+            })
+        }
+        
+    }
     renderNavEnd(){
       
         if(this.props.auth.user === null){
@@ -42,13 +66,40 @@ class Navbar extends Component {
                     </div>
                 )
         } else {
-            return ( <div className='navbar-item'>
-                <span className=''><i className="fa fa-shopping-cart" aria-hidden="true"></i></span>
+            return ( <div className='navbar-item '>
+                <div className={'dropdown'+this.state.activeCart}>
+                    <div className="dropdown-trigger">
+                    <button onClick={()=>this.activateHover()} className="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <i className="fa fa-shopping-cart " aria-hidden="true"></i>
+                    </button>
+                     
+                    </div>
+
+                    <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div className="dropdown-content">
+                            <>{this.props.cart.map(x=>
+                                <div className="dropdown-item is-size-7">
+                                    <span> 
+                                        <span className='has-text-primary-dark'>{x.name}</span>
+                                        <span> {x.count}</span>   
+                                        <span className='has-text-right'> {(x.price*x.count).toFixed(2)}</span></span> 
+                                        
+                                </div>    
+                                
+                                )}
+
+                                <div className="dropdown-item">Total:</div>
+                            </>
+                    </div>
+                    </div>
+                </div>
+                <span className='ml-3 mr-1'>{this.state.count}</span> 
                 <span className='ml-4'>{this.props.auth.user.displayName}</span>
                 <div className='navbar-item ml-2'>
                     <button className='button is-danger is-outlined' onClick={()=>this.props.loadSignOut()}>Sign Out</button>
                 </div>
-            </div >)
+            </div >
+            )
         }
     }
     render(){
@@ -140,9 +191,6 @@ class Navbar extends Component {
                         {this.renderNavEnd()}
                     </div>
 
-                    
-                        
-                    
                 </div>
             </div>
         )	} 
@@ -151,7 +199,8 @@ class Navbar extends Component {
  function mapStateToProps(state){
      
      return {
-         auth:state.auth
+         auth:state.auth,
+         cart:state.cart.cart
      }
  }
  

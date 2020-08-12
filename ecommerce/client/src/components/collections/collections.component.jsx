@@ -37,7 +37,7 @@ class Collections extends Component {
         return false
     }
     render(){
-        console.log(this.props.products,this.state.products);
+        
         return(
             <React.Fragment>
                
@@ -47,8 +47,8 @@ class Collections extends Component {
                     <div className="column is-12 has-text-success-dark mt-2 is-size-1 ml-3 is-capitalized" >
                         <Link to={this.props.match.url+'/'+prKey} >{prKey}</Link>
                     </div>
-                    {values.filter( (pi,productIndex) => productIndex < 4).map( ({_id,name,img}) =>
-                        <div key = {_id} className="column is-3 hover-hand" onClick={()=>this.props.history.push(`${this.props.match.url}/${prKey}/${_id}`)}>
+                    {values.filter( (pi,productIndex) => productIndex < 6).map( ({_id,name,img}) =>
+                        <div key = {_id} className="column is-2 hover-hand" onClick={()=>this.props.history.push(`${this.props.match.url}/${prKey}/${_id}`)}>
                             <div className="card">
                                 <div className="card-image">
                                     <figure className="image is-1by1">
@@ -56,7 +56,7 @@ class Collections extends Component {
                                     </figure>
                                 </div>
                                 
-                                <div className='content'>
+                                <div className='content is-size-6'>
                                     {name}
                                 </div>
                         </div> 

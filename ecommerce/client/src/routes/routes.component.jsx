@@ -9,6 +9,7 @@ import Collections from '../components/collections/collections.component';
 import CollectionItem from '../components/collections/collectionItem.component';
 import NoMatch from '../pages/noMatch/noMatch404';
 import collectionsPreviewComponent from '../components/collections/collectionsPreview.component';
+import CartComponent from '../components/cartHOC/cartHOC';
 
 class Routes extends Component { 
     constructor(props){
@@ -28,6 +29,7 @@ class Routes extends Component {
                 <Route exact path ='/shop' component={ShopPage}></Route>
                 <Route exact path ='/signupmail' component={FormInput}></Route>
                 <Route exact path ='/vases' component={Vases}></Route>
+                <Route exact path ='/cart' component={CartComponent}></Route>
                 <Route exact path ='*' component={NoMatch}></Route>
             </Switch>
             

@@ -6,6 +6,8 @@ import { createStore, applyMiddleware, compose } from 'redux';
 // import * as serviceWorker from './serviceWorker.js';
 import {Provider} from 'react-redux';
 import reduxThunk from 'redux-thunk';
+import logger from 'redux-logger';
+
 
 import rootReducer from './redux/reducers/index.reducers';
 const composeEnhancers =
@@ -15,7 +17,7 @@ const composeEnhancers =
     }) : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(reduxThunk),
+  applyMiddleware(reduxThunk,logger),
 );
 const store = createStore(rootReducer,enhancer);
 

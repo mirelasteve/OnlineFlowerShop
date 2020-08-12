@@ -1,6 +1,6 @@
-import firebase from '../../../firebase/firebase.utils';
+import firebase from '../../../utils/firebase.utils';
 // import auth from '../../../firebase/firebase.utils';
-import { SIGN_UP, SIGN_OUT } from '../actions.types';
+import { SIGN_UP, SIGN_OUT, ADD_ID_TO_CART } from '../actions.types';
 
 
 export const SignInWithProvider = (providerName)=>{
@@ -30,6 +30,12 @@ export const SignInWithProvider = (providerName)=>{
       }
   }
 
+  export const addId = (user) => {
+      return {
+          type:ADD_ID_TO_CART,
+          id:user.uid
+      }
+  }
 
 
 export const loadCreateUser = () => {
@@ -50,6 +56,7 @@ const checkDatebaseForCurrentUser = (user,data) =>{
         const result = await userRef.get();
         if(result.exists){
             dispatch(signUp(result.data()))
+            dispatch(addId(result.data()))
         } else {
            dispatch(createUser(userRef,user,data))
           }
@@ -72,14 +79,12 @@ export const createUser =  (userRef,userAuth,data) => {
                                  })
                 }
                 dispatch(signUp(userAuth))
+                dispatch(addId(userAuth))
                 return userRef
     }
     
     }
-   
-    
   
-
   export const loadSignOut =  () => {
     return async (dispatch) => {
        await firebase.auth().signOut().then(function(){

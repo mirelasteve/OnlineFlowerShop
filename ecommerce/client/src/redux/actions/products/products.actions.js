@@ -1,4 +1,4 @@
-import { db } from "../../../firebase/firebase.utils"
+import { db } from "../../../utils/firebase.utils"
 
 const {LOAD_STATE_PRODUCT, LOAD_STATE_PRODUCT_COLLECTION } = require("../actions.types")
 

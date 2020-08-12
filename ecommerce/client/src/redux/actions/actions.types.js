@@ -10,3 +10,6 @@ export const LOAD_STATE_PRODUCT_COLLECTION_ITEM = 'LOAD_STATE_PRODUCT_COLLECTION
 
 // Cart action types
  export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
+ export const ADD_ID_TO_CART = 'ADD_ID_TO_CART '
+ export const MINUS_PRODUCT = 'MINUS_PRODUCT';  
+ export const PLUS_PRODUCT = 'PLUS_PRODUCT';

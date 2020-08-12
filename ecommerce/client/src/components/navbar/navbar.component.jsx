@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Link,withRouter,NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
+import { selectCart, selectTotalAmount ,selectTotalProducts} from '../../redux/selectors/cart.selectors';
+import { checkPropsState } from '../../utils/checkPropsState';
 // import * as authActions from '../../redux/actions/auth/auth.actions';
 
 
@@ -12,34 +14,13 @@ class Navbar extends Component {
         this.state={
            user:'',
            count:0,
-           activeCart:''
+           activeCart:'',
+           
         }
     }
    
-    componentDidUpdate(){
-       let newCount = 0;
-        this.props.cart.map(x=> newCount+=x.count);
-        if( typeof newCount === 'number' && newCount!== this.state.count ){
-            this.setState({
-                count:newCount
-            })
-        }
-    }   
-
-    activateHover(){
-        if(this.state.activeCart.length<1) {
-            this.setState({
-                activeCart:' is-active'
-            })
-        } else {
-            this.setState({
-                activeCart:''
-            })
-        }
-        
-    }
     renderNavEnd(){
-      
+       
         if(this.props.auth.user === null){
            
             return ( <React.Fragment>
@@ -67,9 +48,9 @@ class Navbar extends Component {
                 )
         } else {
             return ( <div className='navbar-item '>
-                <div className={'dropdown'+this.state.activeCart}>
+                <div className={'dropdown is-hoverable'+this.state.activeCart}>
                     <div className="dropdown-trigger">
-                    <button onClick={()=>this.activateHover()} className="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                    <button onClick={()=>this.props.history.push('/cart')} className="button" aria-haspopup="true" aria-controls="dropdown-menu">
                             <i className="fa fa-shopping-cart " aria-hidden="true"></i>
                     </button>
                      
@@ -77,23 +58,42 @@ class Navbar extends Component {
 
                     <div className="dropdown-menu" id="dropdown-menu" role="menu">
                     <div className="dropdown-content">
-                            <>{this.props.cart.map(x=>
-                                <div className="dropdown-item is-size-7">
-                                    <span> 
-                                        <span className='has-text-primary-dark'>{x.name}</span>
-                                        <span> {x.count}</span>   
-                                        <span className='has-text-right'> {(x.price*x.count).toFixed(2)}</span></span> 
+                            <>
+                            <div className="dropdown-item is-size-7">
+                                <div className='columns pr0 is-italic'> 
+                                    <div className='column is-6 has-text-primary-dark'>Name</div>
+                                    <div className='column is-2 has-text-danger-dark '>Count</div>   
+                                    <div className='column is-4 has-text-info-dark has-text-right '>$</div>
+                                </div> 
+                            </div>
+                            {this.props.cart.map( (x,ind) =>
+                            typeof x.id === 'string' && typeof x.count === 'number' 
+                                ?<div key={x.name} className="dropdown-item is-size-7">
+                                    <div className='columns pr0'> 
+                                        <div className='column is-3 '> <img src={x.img}/></div>  
+                                        <div className='column is-4 has-text-primary-dark'><Link to={x.url}>{x.name}</Link></div>
+                                        <div className='column is-1 has-text-danger-dark has-text-right'> {x.count}</div>   
+                                        <div className='column is-4 has-text-info-dark has-text-right '> {(x.price*x.count).toFixed(2)}</div>
+                                    </div> 
                                         
                                 </div>    
-                                
+                                :<div key={ind}></div>
                                 )}
 
-                                <div className="dropdown-item">Total:</div>
+                            <div className="dropdown-item is-size-7 has-text-weight-bold">
+                                <div className='columns pr0  '>
+                                    <div className='column is-6'>Total:</div>
+                                    <div className='column is-6 has-text-right'>
+                                        {this.props.totalAmount.toFixed(2)}
+                                    </div>
+                                </div>
+                                
+                            </div>
                             </>
                     </div>
                     </div>
                 </div>
-                <span className='ml-3 mr-1'>{this.state.count}</span> 
+                <span className='ml-3 mr-1'>{this.props.totalCountProducts}</span> 
                 <span className='ml-4'>{this.props.auth.user.displayName}</span>
                 <div className='navbar-item ml-2'>
                     <button className='button is-danger is-outlined' onClick={()=>this.props.loadSignOut()}>Sign Out</button>
@@ -103,7 +103,7 @@ class Navbar extends Component {
         }
     }
     render(){
-       
+       console.log('rerender navbar');
         return(
             <div className='navbar is-dark' role="navigation" >
 
@@ -200,7 +200,10 @@ class Navbar extends Component {
      
      return {
          auth:state.auth,
-         cart:state.cart.cart
+         cart:selectCart(state.cart),
+         totalCountProducts:selectTotalProducts(state.cart),
+         totalAmount:selectTotalAmount(state.cart)
+        //  cart:state.cart.cart
      }
  }
  

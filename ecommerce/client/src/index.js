@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { createStore, applyMiddleware, compose } from 'redux';
+import {persistStore} from 'redux-persist';
+import {persistGate, PersistGate}  from 'redux-persist/integration/react';
+
 // import * as serviceWorker from './serviceWorker.js';
 import {Provider} from 'react-redux';
 import reduxThunk from 'redux-thunk';
@@ -21,10 +24,15 @@ const enhancer = composeEnhancers(
 );
 const store = createStore(rootReducer,enhancer);
 
+const persistor = persistStore(store);
+
 ReactDOM.render(
 
     <Provider store={store}>
-      <App />
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
+      
     </Provider>
 ,
   document.getElementById('root')

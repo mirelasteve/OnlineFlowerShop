@@ -10,13 +10,19 @@ import CollectionItem from '../components/collections/collectionItem.component';
 import NoMatch from '../pages/noMatch/noMatch404';
 import collectionsPreviewComponent from '../components/collections/collectionsPreview.component';
 import CartComponent from '../components/cartHOC/cartHOC';
+import Profile from '../components/profile/profileUser';
 
 class Routes extends Component { 
     constructor(props){
         super(props);
-        this.state={}
+        this.state={
+            user:''
+        }
     }
+
+    
     render(){
+        console.log(this.props);
         return(
             <Switch>
                 <Route exact path='/' component={Homepage}></Route>
@@ -28,7 +34,7 @@ class Routes extends Component {
                 <Route exact path='/dashboard/:id' component={Dashboard}></Route>
                 <Route exact path ='/shop' component={ShopPage}></Route>
                 <Route exact path ='/signupmail' component={FormInput}></Route>
-                <Route exact path ='/vases' component={Vases}></Route>
+                <Route exact path ='/profile' component={Profile}></Route>
                 <Route exact path ='/cart' component={CartComponent}></Route>
                 <Route exact path ='*' component={NoMatch}></Route>
             </Switch>

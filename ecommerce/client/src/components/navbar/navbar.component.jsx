@@ -103,7 +103,7 @@ class Navbar extends Component {
         }
     }
     render(){
-       console.log('rerender navbar');
+      
         return(
             <div className='navbar is-dark' role="navigation" >
 
@@ -199,7 +199,7 @@ class Navbar extends Component {
  function mapStateToProps(state){
      
      return {
-         auth:state.auth,
+         auth:state.auth ,
          cart:selectCart(state.cart),
          totalCountProducts:selectTotalProducts(state.cart),
          totalAmount:selectTotalAmount(state.cart)

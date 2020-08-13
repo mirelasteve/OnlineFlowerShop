@@ -4,12 +4,12 @@ import './index.css';
 import App from './App';
 import { createStore, applyMiddleware, compose } from 'redux';
 import {persistStore} from 'redux-persist';
-import {persistGate, PersistGate}  from 'redux-persist/integration/react';
+import { PersistGate}  from 'redux-persist/integration/react';
 
 // import * as serviceWorker from './serviceWorker.js';
 import {Provider} from 'react-redux';
 import reduxThunk from 'redux-thunk';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 
 
 import rootReducer from './redux/reducers/index.reducers';
@@ -20,7 +20,7 @@ const composeEnhancers =
     }) : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(reduxThunk,logger),
+  applyMiddleware(reduxThunk),
 );
 const store = createStore(rootReducer,enhancer);
 

@@ -38,6 +38,7 @@ const CollectionsPreview = ({products,history,match}) => {
         loadState();
       },[collectionName,products]);
      
+      
     
       const setVisibilityToElement = (ind) => {
         let newIsVisibleArr = [...isVisibleArr];

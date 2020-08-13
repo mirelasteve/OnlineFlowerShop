@@ -2,7 +2,8 @@ const { ADD_PRODUCT_TO_CART,
     ADD_ID_TO_CART,
     MINUS_PRODUCT,
     PLUS_PRODUCT,
-    REMOVE_PRODUCT_FROM_CART } = require("../../actions/actions.types")
+    REMOVE_PRODUCT_FROM_CART,
+    PURCHAISED_CART } = require("../../actions/actions.types")
 
 const INITIAL_STATE_CART = {
     userId:'',
@@ -26,7 +27,8 @@ const cartReducer = (state=INITIAL_STATE_CART,action) => {
         }
         case MINUS_PRODUCT: return {
                                     ...state,
-                                        cart:[...state.cart.map((x,xInd)=>{
+                                        cart:  [...state.cart.map((x,xInd)=>{
+                                            
                                             if(typeof action.product.id === 'string' && x.id === action.product.id){
                                                 if(typeof x.count === 'number' && x.count >1){
                                                     
@@ -42,6 +44,7 @@ const cartReducer = (state=INITIAL_STATE_CART,action) => {
                                             } else {
                                                return x
                                             }
+
                                         }) ]
 
         }
@@ -64,6 +67,8 @@ const cartReducer = (state=INITIAL_STATE_CART,action) => {
                                                 ...state,
                                                 cart: [...state.cart.filter(x => x.id!== action.product.id)]
                                             }
+                                            
+        case PURCHAISED_CART : return {...state,cart:[]}
         default: return state
     }
 }

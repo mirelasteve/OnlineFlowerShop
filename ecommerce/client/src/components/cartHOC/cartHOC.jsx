@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { minusProduct, plusProduct } from '../../redux/actions/cart/cart.actions';
 import { MINUS_PRODUCT, PLUS_PRODUCT, REMOVE_PRODUCT_FROM_CART } from '../../redux/actions/actions.types';
 import { selectTotalAmount } from '../../redux/selectors/cart.selectors';
+import PaymentButton from '../payments/paymentButton';
 
 const CartComponent = ({cart,minusProduct,plusProduct,removeProduct,totalAmount}) => {
 
@@ -19,7 +19,9 @@ const CartComponent = ({cart,minusProduct,plusProduct,removeProduct,totalAmount}
         {cart.map((x,ind)=>
             typeof x.id === 'string' && typeof x.count === 'number'
             ? <div key={x.name}  className='columns my-6 ml-6'> 
-                    <div className='column is-2 image is-5by4 py-6'> <img src={x.img}/></div>  
+                    <div className='column is-2 image is-5by4 py-6'> 
+                        <img src={x.img} alt={x.name}/>
+                    </div>  
                     <div className='column is-2 has-text-primary-dark '>
                         <Link to={x.url}>{x.name}</Link>
                         </div>
@@ -41,6 +43,9 @@ const CartComponent = ({cart,minusProduct,plusProduct,removeProduct,totalAmount}
             <div className='çolumns'>
                 
                 <div className='column is-9 has-text-right bold'>{totalAmount.toFixed(2)}$</div>
+                <div className='column is-12 has-text-centered'>
+                    <PaymentButton price={totalAmount.toFixed(2)}></PaymentButton>
+                </div>
             </div>
         
         </>

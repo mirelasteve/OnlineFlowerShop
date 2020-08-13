@@ -1,4 +1,4 @@
-import { ADD_PRODUCT_TO_CART, MINUS_PRODUCT,PLUS_PRODUCT, REMOVE_PRODUCT_FROM_CART } from "../actions.types"
+import { ADD_PRODUCT_TO_CART, MINUS_PRODUCT,PLUS_PRODUCT, REMOVE_PRODUCT_FROM_CART, PURCHAISED_CART } from "../actions.types"
 
 export const addProductToTheCart = (product) => {
     return {
@@ -22,5 +22,10 @@ export const removeProductFromCart = (product) =>{
     return{
         type:REMOVE_PRODUCT_FROM_CART,
         product
+    }
+}
+export const purchaisedCart = () => {
+    return {
+        type:PURCHAISED_CART
     }
 }

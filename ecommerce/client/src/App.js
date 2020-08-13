@@ -42,7 +42,7 @@ class App extends React.Component {
           loadSignOut={this.props.loadSignOut}
         ></Navbar>
         <HeroBanner></HeroBanner>
-        <Routes></Routes>
+        <Routes user={this.state.user}></Routes>
       </BrowserRouter>
     </div>
     );

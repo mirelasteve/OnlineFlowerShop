@@ -1,4 +1,8 @@
-const { ADD_PRODUCT_TO_CART, ADD_ID_TO_CART, MINUS_PRODUCT, PLUS_PRODUCT } = require("../../actions/actions.types")
+const { ADD_PRODUCT_TO_CART,
+    ADD_ID_TO_CART,
+    MINUS_PRODUCT,
+    PLUS_PRODUCT,
+    REMOVE_PRODUCT_FROM_CART } = require("../../actions/actions.types")
 
 const INITIAL_STATE_CART = {
     userId:'',
@@ -56,6 +60,10 @@ const cartReducer = (state=INITIAL_STATE_CART,action) => {
                 }) ]
 
         }
+        case REMOVE_PRODUCT_FROM_CART: return {
+                                                ...state,
+                                                cart: [...state.cart.filter(x => x.id!== action.product.id)]
+                                            }
         default: return state
     }
 }

@@ -1,10 +1,11 @@
 import { firestore,auth } from "firebase";
-import { all, takeLatest, call, put } from "redux-saga/effects";
-import { GOOGLE_SIGN_IN_START, GOOGLE_SIGN_IN_SUCCESS, GOOGLE_SIGN_IN_FAILURE, ADD_ID_TO_CART } from "../../actions/actions.types";
+import { all, takeLatest, call, put, takeEvery } from "redux-saga/effects";
+import { GOOGLE_SIGN_IN_START, GOOGLE_SIGN_IN_SUCCESS, GOOGLE_SIGN_IN_FAILURE, ADD_ID_TO_CART, CHECK_CURRENT_USER, SIGN_IN } from "../../actions/actions.types";
+import { checkCurrentUser } from "../../../utils/onAuthChanged";
 
 
 function* createUser(userRef,userAuth,data){
-        console.log(userAuth)
+       
             if(!userAuth){
                 return;
             }  else {
@@ -61,7 +62,29 @@ export function* googleSignInStartSaga(){
     yield takeLatest(GOOGLE_SIGN_IN_START,googleSignIn)
 }
 
-export function* authSagas(){
-    yield all([call(googleSignInStartSaga)])
-} 
+ 
     
+export function* inCheckCurrentUser(){
+    
+    try{
+      const user =  yield call(checkCurrentUser);        
+        yield put({type:SIGN_IN,user:user})
+        yield put({type:ADD_ID_TO_CART,user:user})
+        
+    }
+    catch(error){
+        yield put({type:GOOGLE_SIGN_IN_FAILURE,error:error})
+    }
+}
+export function* onCheckCurrentUser(){
+   console.log('SAGA CHECK CURRENT USER')
+    yield takeLatest(CHECK_CURRENT_USER,inCheckCurrentUser)
+}
+
+
+export function* authSagas(){
+    yield all([
+        call(googleSignInStartSaga),
+        call(onCheckCurrentUser)
+    ])
+}

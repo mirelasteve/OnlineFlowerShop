@@ -6,14 +6,15 @@ import Navbar from './components/navbar/navbar.component.jsx';
 import {BrowserRouter} from 'react-router-dom';
 import Routes from './routes/routes.component';
 // import * as authActions  from './redux/actions/auth/auth.actions';
-import {SignInWithProvider,loadCreateUser,loadSignOut} from './redux/actions/auth/auth.actions';
+import {SignInWithProvider,loadCreateUser,loadSignOut, checkUserSession} from './redux/actions/auth/auth.actions';
 
 // import {auth,createUser} from './firebase/firebase.utils';
 import {connect} from 'react-redux';
 import HeroBanner from './pages/hero/hero.pages';
 import {loatStateProduct,getStateProducts} from './redux/actions/products/products.actions';
 import { fetchCollectionsStartSaga } from './redux/sagas/products/products.sagas';
-import { LOAD_STATE_PRODUCT } from './redux/actions/actions.types';
+import { LOAD_STATE_PRODUCT, CHECK_CURRENT_USER } from './redux/actions/actions.types';
+import { onCheckCurrentUser } from './redux/sagas/auth/auth.sagas';
 
 class App extends React.Component {
   constructor(props){
@@ -24,7 +25,8 @@ class App extends React.Component {
   }
  
   componentDidMount(){
-    this.props.fetchCollectionsStartSaga()
+    this.props.fetchCollectionsStartSaga();
+    this.props.onCheckCurrentUser();
   //   const load = async () => {
   //     // await this.props.loadCreateUser()
   //     // await this.props.loadState()
@@ -63,6 +65,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadCreateUser : () => dispatch(loadCreateUser()),
   loadSignOut : () =>dispatch(loadSignOut()),
   loadState : () => dispatch(loatStateProduct()),
-  fetchCollectionsStartSaga : () => dispatch({type:LOAD_STATE_PRODUCT})
+  fetchCollectionsStartSaga : () => dispatch({type:LOAD_STATE_PRODUCT}),
+  onCheckCurrentUser: () => dispatch(checkUserSession())
 })
 export default connect(mapStateToProps,mapDispatchToProps)(App);

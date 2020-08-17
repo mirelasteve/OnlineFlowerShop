@@ -1,7 +1,9 @@
 export const SET_USER = 'SET_USER';
 export const SIGN_UP = 'SIGN_UP';
+export const SIGN_IN = 'SIGN_IN';
 export const SIGN_OUT = 'SIGN_OUT';
 export const START_LOAD_USER = 'START_LOAD_USER';
+export const CHECK_CURRENT_USER = 'CHECK_CURRENT_USER';
 
 
 // Products action types

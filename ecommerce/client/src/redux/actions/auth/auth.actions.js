@@ -1,6 +1,6 @@
 import firebase from '../../../utils/firebase.utils';
 // import auth from '../../../firebase/firebase.utils';
-import { SIGN_UP, SIGN_OUT, ADD_ID_TO_CART, GOOGLE_SIGN_IN_START } from '../actions.types';
+import { SIGN_UP, SIGN_OUT, ADD_ID_TO_CART, GOOGLE_SIGN_IN_START, CHECK_CURRENT_USER, SIGN_IN } from '../actions.types';
 
 
 export const SignInWithProvider = (providerName)=>{
@@ -29,6 +29,13 @@ export const SignInWithProvider = (providerName)=>{
           user:user
       }
   }
+
+  export const signIn = (user) => {
+    return {
+        type:SIGN_IN,
+        user:user
+    }
+}
 
   export const addId = (user) => {
       return {
@@ -103,5 +110,11 @@ export const signOut = () => {
 export const googleSignInStart = () => {
     return {
         type:GOOGLE_SIGN_IN_START
+    }
+}
+
+export const checkUserSession  = () =>{
+    return {
+        type:CHECK_CURRENT_USER
     }
 }

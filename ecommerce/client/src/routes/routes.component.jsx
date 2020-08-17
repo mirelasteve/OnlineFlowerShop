@@ -16,13 +16,13 @@ class Routes extends Component {
     constructor(props){
         super(props);
         this.state={
-            user:''
+         
         }
     }
 
     
     render(){
-        console.log(this.props);
+       
         return(
             <Switch>
                 <Route exact path='/' component={Homepage}></Route>

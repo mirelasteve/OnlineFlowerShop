@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import { selectCart, selectTotalAmount ,selectTotalProducts} from '../../redux/selectors/cart.selectors';
 import { checkPropsState } from '../../utils/checkPropsState';
+import { googleSignInStartSaga } from '../../redux/sagas/auth/auth.sagas';
+import { googleSignInStart } from '../../redux/actions/auth/auth.actions';
 // import * as authActions from '../../redux/actions/auth/auth.actions';
 
 
@@ -20,7 +22,7 @@ class Navbar extends Component {
     }
    
     renderNavEnd(){
-       
+       console.log(this.props);
         if(this.props.auth.user === null){
            
             return ( <React.Fragment>
@@ -34,7 +36,7 @@ class Navbar extends Component {
                 </div>
                 
                 <div className='navbar-item'>
-                    <button onClick={()=>this.props.SignInWithProvider('google')} className='button is-danger is-light'>
+                    <button onClick={()=>this.props.googleSignInStart()} className='button is-danger is-light'>
                         <span className='icon is-large'><i className="fab fa-google" aria-hidden="true"></i></span>
                     </button>
                 </div>
@@ -206,5 +208,11 @@ class Navbar extends Component {
         //  cart:state.cart.cart
      }
  }
+
+ function mapDispatchToProps(dispatch) {
+     return ({
+        googleSignInStart : () => dispatch(googleSignInStart())
+     })
+ }
  
- export default compose(withRouter, connect(mapStateToProps,null))(Navbar);
+ export default compose(withRouter, connect(mapStateToProps,mapDispatchToProps))(Navbar);

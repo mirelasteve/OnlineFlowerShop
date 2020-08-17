@@ -12,7 +12,7 @@ const INITIAL_STATE_CART = {
 }
 
 const cartReducer = (state=INITIAL_STATE_CART,action) => {
-    console.log(action)
+   
     switch(action.type){
         case ADD_PRODUCT_TO_CART: return {
                                     ...state,

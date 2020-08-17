@@ -11,7 +11,9 @@ import {SignInWithProvider,loadCreateUser,loadSignOut} from './redux/actions/aut
 // import {auth,createUser} from './firebase/firebase.utils';
 import {connect} from 'react-redux';
 import HeroBanner from './pages/hero/hero.pages';
-import {loatStateProduct} from './redux/actions/products/products.actions';
+import {loatStateProduct,getStateProducts} from './redux/actions/products/products.actions';
+import { fetchCollectionsStartSaga } from './redux/sagas/products/products.sagas';
+import { LOAD_STATE_PRODUCT } from './redux/actions/actions.types';
 
 class App extends React.Component {
   constructor(props){
@@ -22,11 +24,12 @@ class App extends React.Component {
   }
  
   componentDidMount(){
-    const load = async () => {
-      await this.props.loadCreateUser()
-      await this.props.loadState()
-    }
-  load()
+    this.props.fetchCollectionsStartSaga()
+  //   const load = async () => {
+  //     // await this.props.loadCreateUser()
+  //     // await this.props.loadState()
+  //   }
+  // load()
 }
 
   render(){
@@ -59,6 +62,7 @@ const mapDispatchToProps = (dispatch) => ({
   SignInWithProvider : (provider) => dispatch(SignInWithProvider(provider)),
   loadCreateUser : () => dispatch(loadCreateUser()),
   loadSignOut : () =>dispatch(loadSignOut()),
-  loadState : () => dispatch(loatStateProduct())
+  loadState : () => dispatch(loatStateProduct()),
+  fetchCollectionsStartSaga : () => dispatch({type:LOAD_STATE_PRODUCT})
 })
 export default connect(mapStateToProps,mapDispatchToProps)(App);

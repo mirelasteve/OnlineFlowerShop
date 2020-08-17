@@ -1,6 +1,7 @@
 export const SET_USER = 'SET_USER';
 export const SIGN_UP = 'SIGN_UP';
 export const SIGN_OUT = 'SIGN_OUT';
+export const START_LOAD_USER = 'START_LOAD_USER';
 
 
 // Products action types
@@ -15,3 +16,8 @@ export const LOAD_STATE_PRODUCT_COLLECTION_ITEM = 'LOAD_STATE_PRODUCT_COLLECTION
  export const PLUS_PRODUCT = 'PLUS_PRODUCT';
  export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
  export const PURCHAISED_CART = 'PURCHAISED_CART'
+
+//  Auth action types
+export const GOOGLE_SIGN_IN_START = 'GOOGLE_SIGN_IN_START';
+export const GOOGLE_SIGN_IN_SUCCESS = 'GOOGLE_SIGN_IN_SUCCESS';
+export const GOOGLE_SIGN_IN_FAILURE= 'GOOGLE_SIGN_IN_FAILURE';

@@ -20,7 +20,7 @@ export const  loatStateProduct = (dispatch) => {
     
 }
 
- const getStateProducts = (payload) => {
+export const getStateProducts = (payload) => {
     return {
         type:LOAD_STATE_PRODUCT,
         payload

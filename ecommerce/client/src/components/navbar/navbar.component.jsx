@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import {compose} from 'redux';
 import { selectCart, selectTotalAmount ,selectTotalProducts} from '../../redux/selectors/cart.selectors';
 import { checkPropsState } from '../../utils/checkPropsState';
-import { googleSignInStartSaga } from '../../redux/sagas/auth/auth.sagas';
-import { googleSignInStart } from '../../redux/actions/auth/auth.actions';
+import { googleSignInStartSaga, onStartSignOut } from '../../redux/sagas/auth/auth.sagas';
+import { googleSignInStart, startSignOutAction } from '../../redux/actions/auth/auth.actions';
 // import * as authActions from '../../redux/actions/auth/auth.actions';
 
 
@@ -22,11 +22,11 @@ class Navbar extends Component {
     }
    
     renderNavEnd(){
-       console.log(this.props);
+       console.log(this.props.auth.user === null,this.props.auth.loadingUser);
         if(this.props.auth.user === null){
            
             return ( <React.Fragment>
-                <div className='navbar-item'><Link to='/signupmail'><button className='button has-text-primary-light has-background-primary-dark'><i className="fa fa-envelope mr-4" ></i><span className='is-spaced'>Sign in </span></button></Link></div>
+                {/* <div className='navbar-item'><Link to='/signupmail'><button className='button has-text-primary-light has-background-primary-dark'><i className="fa fa-envelope mr-4" ></i><span className='is-spaced'>Sign in </span></button></Link></div> */}
                 <div className='navbar-item'>
                     <button  onClick={()=>this.props.SignInWithProvider('facebook')} className='button is-info' >
                         <span className='icon is-large'>
@@ -41,7 +41,7 @@ class Navbar extends Component {
                     </button>
                 </div>
             </React.Fragment>)
-        } else if(this.props.auth.user === ''){
+        } else if(this.props.auth.loadingUser){
            
             return (<div className='navbar-item'>
                         <span>Loading ...</span>
@@ -98,7 +98,7 @@ class Navbar extends Component {
                 <span className='ml-3 mr-1'>{this.props.totalCountProducts}</span> 
                 <span className='ml-4'>{this.props.auth.user.displayName}</span>
                 <div className='navbar-item ml-2'>
-                    <button className='button is-danger is-outlined' onClick={()=>this.props.loadSignOut()}>Sign Out</button>
+                    <button className='button is-danger is-outlined' onClick={()=>this.props.onStartSignOut()}>Sign Out</button>
                 </div>
             </div >
             )
@@ -211,8 +211,9 @@ class Navbar extends Component {
 
  function mapDispatchToProps(dispatch) {
      return ({
-        googleSignInStart : () => dispatch(googleSignInStart())
-     })
+        googleSignInStart : () => dispatch(googleSignInStart()),
+        onStartSignOut : () => dispatch(startSignOutAction())
+    })
  }
  
  export default compose(withRouter, connect(mapStateToProps,mapDispatchToProps))(Navbar);

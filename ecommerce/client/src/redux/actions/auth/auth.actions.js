@@ -1,6 +1,6 @@
 import firebase from '../../../utils/firebase.utils';
 // import auth from '../../../firebase/firebase.utils';
-import { SIGN_UP, SIGN_OUT, ADD_ID_TO_CART, GOOGLE_SIGN_IN_START, CHECK_CURRENT_USER, SIGN_IN } from '../actions.types';
+import { SIGN_UP, SIGN_OUT, ADD_ID_TO_CART, GOOGLE_SIGN_IN_START, CHECK_CURRENT_USER, SIGN_IN, SIGN_OUT_SUCCESS, SIGN_OUT_FAILURE, START_SIGN_OUT } from '../actions.types';
 
 
 export const SignInWithProvider = (providerName)=>{
@@ -105,6 +105,23 @@ export const createUser =  (userRef,userAuth,data) => {
 export const signOut = () => {
     return {
         type:SIGN_OUT
+    }
+}
+export const startSignOutAction = () => {
+    return {
+        type:START_SIGN_OUT
+    }
+}
+export const signOutSuccess = () => {
+    return {
+        type:SIGN_OUT_SUCCESS
+    }
+}
+
+export const signOutFailure = (error) => {
+    return {
+        type:SIGN_OUT_FAILURE,
+        error
     }
 }
 export const googleSignInStart = () => {

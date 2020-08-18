@@ -1,5 +1,11 @@
-import { ADD_PRODUCT_TO_CART, MINUS_PRODUCT,PLUS_PRODUCT, REMOVE_PRODUCT_FROM_CART, PURCHAISED_CART } from "../actions.types"
+import { ADD_PRODUCT_TO_CART, MINUS_PRODUCT,PLUS_PRODUCT, REMOVE_PRODUCT_FROM_CART, PURCHAISED_CART, START_ADD_PRODUCT_TO_CART } from "../actions.types"
 
+export const startAddToCartAction = (product) => {
+    return {
+        type:START_ADD_PRODUCT_TO_CART,
+        product
+    }
+}
 export const addProductToTheCart = (product) => {
     return {
         type:ADD_PRODUCT_TO_CART,

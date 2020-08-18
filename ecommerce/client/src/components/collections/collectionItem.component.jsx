@@ -2,7 +2,8 @@ import React, { useReducer, useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import productReducer from '../../redux/reducers/products/products.reducer';
 import {connect} from 'react-redux';
-import { LOAD_STATE_PRODUCT, ADD_PRODUCT_TO_CART } from '../../redux/actions/actions.types';
+import { LOAD_STATE_PRODUCT, ADD_PRODUCT_TO_CART, START_ADD_PRODUCT_TO_CART } from '../../redux/actions/actions.types';
+import { startAddToCartAction } from '../../redux/actions/cart/cart.actions';
 
 const CollectionItem= ({productItem, addProductToTheCart, match}) => {
     
@@ -12,7 +13,7 @@ const CollectionItem= ({productItem, addProductToTheCart, match}) => {
         if(typeof productItem === 'object' && productItem){
             setState(productItem)
         }
-    },productItem._id);
+    },[productItem._id]);
 
     const {name,description,price,img,_id} = state;
 
@@ -74,7 +75,7 @@ const mapStateToProps = (state,ownProps) => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-     
+        // addProductToTheCart:(product) => dispatch({type:START_ADD_PRODUCT_TO_CART,product})
       addProductToTheCart: (product) => dispatch({type: ADD_PRODUCT_TO_CART,product})
       
     }
